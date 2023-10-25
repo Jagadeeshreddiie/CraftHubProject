@@ -1,33 +1,20 @@
-const express=require('express');
-const 
-    {   userRegister,
-        userLogin,
-        findAll,
-        findUserByName,
-        findUserBySkills,
-        findUserByExperience,
-        findUserByArea,
-        findUserByAreaBySkill,
-        updatePasswordMail,
-        updatePasswordByPhonenumber,
-        updateDetails,
-        deleteUser
-    }=require('./db.js');
+const express =require( 'express');
+const { userRegister, userLogin, findAll, findUserByName, findUserBySkills, findUserByExperience, findUserByArea, findUserByAreaBySkill, updatePasswordMail, updatePasswordByPhonenumber, updateDetails, deleteUser } = require('./db').default;
 
 const api=express();
-const url=require('url');
+const url=require("url");
+const cors =require("cors");
 
 
 
 api.get('/userRegister',async function(req,res){
 
     const data=url.parse(req.url,true);
+    
     var query={};
     const result=await userRegister(query);
     res.send(result);
-
-
-})
+});
 
 api.get('/userLogin',async function(req,res){
 
@@ -81,6 +68,14 @@ api.get('/findUserByArea',async function(req,res){
     const data=url.parse(req.url,true);
     var query={};
     const result=await findUserByArea(query);
+    res.send(result);
+})
+
+api.get('/findUserByCategory',async function(req,res){
+
+    const data=url.parse(req.url,true);
+    var query={};
+    const result=await findUserByCategory(query);
     res.send(result);
 })
 
